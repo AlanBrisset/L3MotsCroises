@@ -9,6 +9,6 @@
 
 int main() {
 
-        printf ("Hello, World!\n");
+        printf ("Hello, World!\n"); // Si HELLO WORLD apparait dans la console, Votre config est OK !
         return 0;
 }
