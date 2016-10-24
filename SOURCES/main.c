@@ -6,6 +6,9 @@
  */
 
 #include <stdio.h>
+#include <zmq.h>
+#include <string.h>
+#include <unistd.h>
 
 int main() {
 
