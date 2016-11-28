@@ -17,12 +17,11 @@ int main (void)
     printf ("Création du joueur pour rejoindre la session ...\n");
     void *context = zmq_ctx_new ();
     void *requester = zmq_socket (context, ZMQ_REQ);
-    zmq_connect (requester, "tcp://localhost:5555");
+    zmq_connect (requester, "tcp://localhost:7878");
 
 /* APPELS DES FONCTIONS A AJOUTER DANS L'ORDRE ! */
 
  	/* FONCTIONS DE JOIN (YOUSSEF) */   
-
 JOIN(requester);
 
 	/*FONCTIONS DE GRID (LEO)

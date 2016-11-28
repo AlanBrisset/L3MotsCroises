@@ -3,7 +3,6 @@
 
 
 void JOIN(void *requester);
-void Hello();
 
 
 
