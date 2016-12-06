@@ -2,7 +2,7 @@
 #define H_FONCTIONS
 
 
-void JOIN(void *requester);
+void JOIN(void *requester, char choix[]);
 
 
 

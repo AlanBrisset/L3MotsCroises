@@ -4,11 +4,11 @@ DIR_S         = ./FONCTIONS_S/
 
 all: client server clean
 
-client: join_c.o grid_c.o words_c.o found_c.o client.o 
-	gcc -o client join.o grid.o words.o found.o client.o -lzmq
+client: join_c.o grid_c.o words_c.o found_c.o others_c.o client.o 
+	gcc -o client join.o grid.o words.o found.o others.o client.o -lzmq
 
-server: join_s.o grid_s.o words_s.o found_s.o server.o
-	gcc -o server join.o grid.o words.o found.o server.o -lzmq
+server: join_s.o grid_s.o words_s.o found_s.o others_s.o server.o
+	gcc -o server join.o grid.o words.o found.o others.o server.o -lzmq
 
 join_c.o: 
 	gcc -o join.o -c $(DIR_C)JOIN.c -W -Wall -ansi -pedantic -lzmq
@@ -21,6 +21,9 @@ words_c.o:
 
 found_c.o: 
 	gcc -o found.o -c $(DIR_C)FOUND.c -W -Wall -ansi -pedantic -lzmq
+
+others_c.o: 
+	gcc -o others.o -c $(DIR_C)OTHERS.c -W -Wall -ansi -pedantic -lzmq
 
 client.o: client.c $(DIR_C)fonctions.h
 	gcc -o client.o -c client.c -W -Wall -ansi -pedantic -lzmq
@@ -36,6 +39,9 @@ words_s.o:
 
 found_s.o: 
 	gcc -o words.o -c $(DIR_S)FOUND.c -W -Wall -ansi -pedantic -lzmq
+
+others_s.o: 
+	gcc -o others.o -c $(DIR_S)OTHERS.c -W -Wall -ansi -pedantic -lzmq
 
 server.o: server.c $(DIR_S)fonctions.h
 	gcc -o server.o -c server.c -W -Wall -ansi -pedantic -lzmq

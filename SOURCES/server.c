@@ -6,6 +6,9 @@
 
 #include "FONCTIONS_S/fonctions.h"
 
+#define PORT1 8000;
+#define PORT2 8001;
+
 int main (void)
 {
 
@@ -16,22 +19,54 @@ int main (void)
 
     while (1) {
 
-        /* APPELS DES FONCTIONS A AJOUTER DANS L'ORDRE ! */
+printf ("\n------------- EN ATTENTE DE RECEPTION D'UNE COMMANDE -------------\n");
 
- 	/* FONCTIONS DE JOIN (YOUSSEF) */   
-JOIN(responder);
+    char choix[100];
+    zmq_recv (responder, choix, 100, 0); /* Réception de la fonction du joueur*/
+    char	*pointeur;
+    char	*separateur = { " " };     /* Le séparateur*/
+    char 	*buffer;
+    char    *Chaine_Entrante = choix;
 
-	/*FONCTIONS DE GRID (LEO)
+    buffer =  strdup (Chaine_Entrante);
+
+/* DETERMINATON DE LA FONCTION EXECUTEE */
+
+pointeur = strtok( buffer, separateur  );
 
 
-	//FONCTIONS DE WORDS (LEO)
+ /* APPELS DES FONCTIONS A AJOUTER DANS L'ORDRE ! */
+
+ 	/* FONCTIONS DE JOIN (YOUSSEF) */  
+if(!strcmp(pointeur,"JOIN")){ 
+JOIN(responder,choix);
+}
 
 
-	//FONCTIONS DE FOUND (ALAN)
 
+	/*FONCTIONS DE GRID (LEO) */
+else if(!strcmp(pointeur,"GRID")){
 
-	//FONCTIONS DE ATTRIBUTION DE SCORE (ALAN) */
-    }
+}
+
+	/*FONCTIONS DE WORDS (LEO)*/
+
+else if(!strcmp(pointeur,"WORDS")){
+
+}
+
+	/*FONCTIONS DE FOUND (ALAN)*/
+
+else if(!strcmp(pointeur,"FOUND")){
+
+}
+
+	/*FONCTIONS DE ATTRIBUTION DE SCORE (ALAN) */
+else if(!strcmp(pointeur,"SCORE")){
+
+}
+
+}
 
     return 0;
 }
