@@ -17,6 +17,10 @@ int main (void)
     int rc = zmq_bind (responder, "tcp://*:7878");
     assert (rc == 0);
 
+    /* Variables de validation d'etats */
+    int connexion = 0;
+    int grille = 0;
+
     while (1) {
 
 printf ("\n------------- EN ATTENTE DE RECEPTION D'UNE COMMANDE -------------\n");
@@ -26,7 +30,7 @@ printf ("\n------------- EN ATTENTE DE RECEPTION D'UNE COMMANDE -------------\n"
     char	*pointeur;
     char	*separateur = { " " };     /* Le séparateur*/
     char 	*buffer;
-    char    *Chaine_Entrante = choix;
+    char        *Chaine_Entrante = choix;
 
     buffer =  strdup (Chaine_Entrante);
 
@@ -39,29 +43,33 @@ pointeur = strtok( buffer, separateur  );
 
  	/* FONCTIONS DE JOIN (YOUSSEF) */  
 if(!strcmp(pointeur,"JOIN")){ 
-JOIN(responder,choix);
+connexion = JOIN(responder,choix);
 }
 
 
+/*Changement de port avec le client */
 
-	/*FONCTIONS DE GRID (LEO) */
-else if(!strcmp(pointeur,"GRID")){
+	/*FONCTIONS DE GRID (ALAN) */
+if(connexion){
+
+grille = GRID(responder,choix);
 
 }
 
 	/*FONCTIONS DE WORDS (LEO)*/
 
-else if(!strcmp(pointeur,"WORDS")){
+if(grille){
+
 
 }
 
-	/*FONCTIONS DE FOUND (ALAN)*/
+	/*FONCTIONS DE FOUND (LEO)*/
 
 else if(!strcmp(pointeur,"FOUND")){
 
 }
 
-	/*FONCTIONS DE ATTRIBUTION DE SCORE (ALAN) */
+	/*FONCTIONS DE ATTRIBUTION DE SCORE (YOUSSEF) */
 else if(!strcmp(pointeur,"SCORE")){
 
 }

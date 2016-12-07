@@ -7,7 +7,7 @@
 #include "fonctions.h"
 
 
-void JOIN(void *responder, char choix[]){
+int JOIN(void *responder, char choix[]){
 
 	char *fonction= choix;
 	char *parametres[100];
@@ -57,6 +57,7 @@ void JOIN(void *responder, char choix[]){
 	if (!strcmp(line,nomJoueur)){
         existe=1;
         zmq_send (responder, "Vous êtes déjà connecté !", 40, 0);  /*Envoi du message de confirmation*/
+return 0;
     	}
 	}
 
@@ -79,8 +80,8 @@ void JOIN(void *responder, char choix[]){
 
         } 
 
-
         zmq_send (responder, "Nouveau joueur ajouté, Bienvenue !", 30, 0);  /*Envoi du message de confirmation*/
+return 1;
 }
 
 }

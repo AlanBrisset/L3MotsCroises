@@ -21,6 +21,10 @@ int main (void)
     void *requester = zmq_socket (context, ZMQ_REQ);
     zmq_connect (requester, "tcp://localhost:7878");
 
+/* Variables de validation d'etats */
+    int connexion = 0;
+    int grille = 0;
+
 /* ---------------------- BOUCLE DE CHOIX DU CLIENT ------------------------- */
     
 while(1){
@@ -51,11 +55,15 @@ pointeur = buffer;
 
  	/* FONCTIONS DE JOIN (YOUSSEF) */   
 if(!strcmp(pointeur,"JOIN")){
-JOIN(requester, choix);
+connexion = JOIN(requester, choix);
+}
 
+/*Changement de port avec le serveur */
 
 	/*FONCTIONS DE GRID (LEO) */
+if(connexion){
 
+grille = GRID(requester, choix);
 
 }
 

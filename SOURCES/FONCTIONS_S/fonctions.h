@@ -2,7 +2,8 @@
 #define H_FONCTIONS
 
 
-void JOIN(void *requester,char choix[]);
+int JOIN(void *requester,char choix[]);
+int GRID(void *requester,char choix[]);
 char recupererArguments(char choix[]);
 
 

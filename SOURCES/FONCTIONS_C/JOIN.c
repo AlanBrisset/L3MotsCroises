@@ -9,7 +9,7 @@
 
 
 
-void JOIN(void *requester, char choix[]){
+int JOIN(void *requester, char choix[]){
 
 
 /* ---------------------- VERIFICATION DE LA VALIDITE LA FOCNTION ----------------------*/ 
@@ -19,7 +19,7 @@ char	*separateur = { " " };     /* Le séparateur*/
 char 	*buffer;
 char    *Chaine_Entrante = choix;
 int     nb_mot=1;
-	
+
 buffer =  strdup (Chaine_Entrante);
 
 /* premier appel, */
@@ -54,6 +54,7 @@ if(nb_mot == 2){
     zmq_recv(requester, buffer, 40, 0); /* Réception du message de confirmation */
     printf(buffer); /* Affichage du message de confirmation */
     printf("\n");
+return 1;
 }
 
 
@@ -65,6 +66,7 @@ else {
 printf("\nMerci de bien entrer le bon nombre d'arguments pour la fonction JOIN\n"); /* Affichage du message d'erreur de nombre d'arguments */
 printf("Du type : JOIN <idnetifiant>\n\n"); /* Affichage du message du type attendu de la fonction */
 printf("\n------------------------------------------\n\n");
+return 0;
 
 }
 
