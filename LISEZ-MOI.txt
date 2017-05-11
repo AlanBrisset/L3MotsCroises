@@ -1,0 +1,8 @@
+--- !!! ---
+
+L'algorithme de recherche de mots valides dans la grille n'a pas pu être implémenté dans notre système. Nous l'avons toutefois codé, et il est opérationnel.
+Afin de le lancer, il faut aller dans le dossier ALGORITHME, écrire la commande gcc WORDS.c -o Words, puis ./Words.
+La grille qui sera analysée se trouve dans le fichier RESSOURCES/GRID.txt, et doit être modifiée à la main si on veut tester une nouvelle grille.
+Il est important que le fichier WORDS.c se trouve dans un dossier qui contient lui-même le dossier RESSOURCES.
+
+--- !!! ---

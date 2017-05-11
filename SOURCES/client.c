@@ -17,19 +17,30 @@
 
 int main (void)
 {
+
+/* CREATION DES FLUX DE COMMUNICATION AVEC PORTS 1 & 2 */
+
     void *context = zmq_ctx_new ();
     void *requester = zmq_socket (context, ZMQ_REQ);
-    zmq_connect (requester, "tcp://localhost:7878");
+    zmq_connect (requester, "tcp://localhost:1111");
+
+    void *context2 = zmq_ctx_new ();
+    void *requester2 = zmq_socket (context2, ZMQ_REQ);
+    zmq_connect (requester2, "tcp://localhost:2222");
 
 /* Variables de validation d'etats */
     int connexion = 0;
     int grille = 0;
+    int mots = 0;
+    int valide = 0;
+    int quitte = 0;
+    int score = 0;
 
 /* ---------------------- BOUCLE DE CHOIX DU CLIENT ------------------------- */
     
-while(1){
+    while(1){
 
-    printf ("\nVeuillez choisir la fonction à executer : JOIN, GRID, WORD ou FOUND\n");
+    printf ("\nVeuillez choisir la fonction à executer : JOIN, FOUND ou LEAVE \n");
     char choix[100];
 
     fgets(choix, sizeof choix, stdin); /* Entrée du nom du joueur */
@@ -41,56 +52,71 @@ while(1){
 
 /* DETERMINATON DE LA FONCTION EXECUTEE */
 
-if(strchr(buffer, ' ')!=NULL ){
-pointeur = strtok( buffer, separateur  );
-}
+    if(strchr(buffer, ' ')!=NULL ){
+    pointeur = strtok( buffer, separateur  );
+    }
 
-else {
-pointeur = buffer;
-}
+    else {
+    pointeur = buffer;
+    }
 
 
 
-/* APPELS DES FONCTIONS A AJOUTER DANS L'ORDRE ! */
+/* ----------- APPELS DES FONCTIONS A AJOUTER DANS L'ORDRE ! ------------ */
 
- 	/* FONCTIONS DE JOIN (YOUSSEF) */   
-if(!strcmp(pointeur,"JOIN")){
-connexion = JOIN(requester, choix);
-}
+/* FONCTIONS DE JOIN (YOUSSEF) */   
+    if(!strcmp(pointeur,"JOIN")){
+    connexion = JOIN(requester, choix);
+    }
+
+/*FONCTIONS DE GRID (LEO - ALAN) */
+    if(connexion){
+
+
+    grille = GRID(requester2); /*Changement de port avec le serveur */
+
+    }
+
+/*FONCTIONS DE WORDS (LEO)*/
+
+    if(grille){
+
+    mots = WORDS(requester2);
+
+    }
+
+
+/*FONCTIONS DE FOUND (LEO)*/
+
+    else if(!strcmp(pointeur,"FOUND")){
 
 /*Changement de port avec le serveur */
 
-	/*FONCTIONS DE GRID (LEO) */
-if(connexion){
+    valide = FOUND(requester, choix);
+    
+    if(valide){
+    
+    score = score +2;
+    
+    }}
 
-grille = GRID(requester, choix);
 
-}
+/*FONCTIONS DE ATTRIBUTION DE SCORE (YOUSSEF) */
+    else if(!strcmp(pointeur,"LEAVE")){
+        
+    quitte = LEAVE(requester, choix);
+    
+    printf("VOTRE SCORE EST : %i , A BIENTOT !",score);
 
-	/*FONCTIONS DE WORDS (LEO)*/
+    }
 
-else if(!strcmp(pointeur,"WORDS")){
+    else {
 
-}
+    printf(pointeur);
+    printf("\nLa fonction entrée n'existe pas\n\n");
+    }
 
-	/*FONCTIONS DE FOUND (ALAN)*/
-
-else if(!strcmp(pointeur,"FOUND")){
-
-}
-
-	/*FONCTIONS DE ATTRIBUTION DE SCORE (ALAN) */
-else if(!strcmp(pointeur,"SCORE")){
-
-}
-
-else {
-
-printf(pointeur);
-printf("\nLa fonction entrée n'existe pas\n\n");
-}
-
-}
+    }
 
 
     zmq_close (requester);

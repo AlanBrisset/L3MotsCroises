@@ -2,9 +2,11 @@
 #define H_FONCTIONS
 
 
-int JOIN(void *requester,char choix[]);
-int GRID(void *requester,char choix[]);
-char recupererArguments(char choix[]);
+int JOIN(void *responder,char choix[]);
+int GRID(void *responder);
+int WORDS(void *responder);
+int FOUND(void *responder,char choix[]);
+int LEAVE(void *responder,char choix[]);
 
 
 
